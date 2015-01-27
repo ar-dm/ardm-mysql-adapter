@@ -1,0 +1,16 @@
+language: ruby
+sudo: false
+before_script:
+  - "bundle exec rake db:create"
+env:
+  - "ADAPTER=mysql DM_DB_USER=root DM_DB_PASSWORD=''"
+script: "bundle exec rake spec"
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
+  - 2.2.0
+matrix:
+  allow_failures:
+    - rvm: 2.1.5
+    - rvm: 2.2.0

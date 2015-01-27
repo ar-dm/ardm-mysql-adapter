@@ -1,6 +1,8 @@
 require 'pathname'
 
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+
+gemspec
 
 SOURCE         = ENV.fetch('SOURCE', :git).to_sym
 REPO_POSTFIX   = SOURCE == :path ? ''                                : '.git'
@@ -12,7 +14,6 @@ CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 do_options = {}
 do_options[:git] = "#{DATAMAPPER}/do#{REPO_POSTFIX}" if ENV['DO_GIT'] == 'true'
 
-gem 'do_mysql',      DO_VERSION, do_options.dup
 gem 'dm-do-adapter', DM_VERSION,
   SOURCE  => "#{DATAMAPPER}/dm-do-adapter#{REPO_POSTFIX}",
   :branch => CURRENT_BRANCH
@@ -23,20 +24,6 @@ group :development do
     SOURCE  => "#{DATAMAPPER}/dm-migrations#{REPO_POSTFIX}",
     :branch => CURRENT_BRANCH
 
-  gem 'jeweler',       '~> 1.6.4'
-  gem 'rake',          '~> 0.9.2'
-  gem 'rspec',         '~> 1.3.2'
-
-end
-
-platforms :mri_18 do
-  group :quality do
-
-    gem 'rcov',      '~> 0.9.10'
-    gem 'yard',      '~> 0.7.2'
-    gem 'yardstick', '~> 0.4'
-
-  end
 end
 
 group :datamapper do

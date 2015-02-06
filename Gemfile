@@ -35,7 +35,7 @@ group :datamapper do
   gem 'data_objects', DO_VERSION, do_options.dup
 
   plugins = ENV['PLUGINS'] || ENV['PLUGIN']
-  plugins = plugins.to_s.tr(',', ' ').split.push('ardm-migrations').uniq
+  plugins = plugins.to_s.tr(',', ' ').split.uniq
 
   plugins.each do |plugin|
     gem plugin, DM_VERSION,

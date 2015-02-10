@@ -9,6 +9,9 @@ module DataMapper
       module SQL #:nodoc:
 
         IDENTIFIER_MAX_LENGTH = 64
+        SINGLE_TICK = /`/.freeze # gsub slightly faster with a regexp
+        DOUBLE_TICK = '``'.freeze
+        REGEXP_OPERATOR = 'REGEXP'.freeze
 
         private
 
@@ -27,18 +30,17 @@ module DataMapper
 
         # @api private
         def regexp_operator(operand)
-          'REGEXP'
+          REGEXP_OPERATOR
         end
 
-        # @api private
+
         def quote_name(name)
-          "`#{name[0, self.class::IDENTIFIER_MAX_LENGTH].gsub('`', '``')}`"
+          "`#{name[0, self.class::IDENTIFIER_MAX_LENGTH].gsub(SINGLE_TICK,DOUBLE_TICK)}`"
         end
 
       end
 
       include SQL
-
     end
 
     const_added(:MysqlAdapter)

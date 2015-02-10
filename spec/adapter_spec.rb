@@ -11,9 +11,12 @@ ENV['ADAPTER_SUPPORTS'] = 'all'
 
 describe "DataMapper::Adapters::MysqlAdapter" do
 
+  let(:adapter)    { DataMapper::Spec.adapter }
+  let(:repository) { DataMapper.repository(adapter.name) }
+
   before :all do
-    @adapter    = DataMapper::Spec.adapter
-    @repository = DataMapper.repository(@adapter.name)
+    @adapter    = adapter
+    @repository = repository
   end
 
   it_should_behave_like "An Adapter"
